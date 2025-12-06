@@ -12,7 +12,25 @@ public class Admin {
         this.system = system;
     }
 
-    // GET Y/N INPUT
+    // ------------------- INPUT VALIDATION METHODS -------------------
+
+    // Safe integer input
+    private int getInt(String prompt) {
+        int num;
+        while (true) {
+            System.out.print(prompt);
+            if (input.hasNextInt()) {
+                num = input.nextInt();
+                input.nextLine(); // consume newline
+                return num;
+            } else {
+                input.nextLine(); // discard invalid input
+                System.out.println("Invalid input. Numbers only.");
+            }
+        }
+    }
+
+    // Y/N input validation
     private char getYN() {
         char c;
         while (true) {
@@ -25,7 +43,7 @@ public class Admin {
         }
     }
 
-    // GET A/P INPUT
+    // A/P input validation
     private char getAP() {
         char c;
         while (true) {
@@ -34,11 +52,12 @@ public class Admin {
                 c = Character.toUpperCase(s.charAt(0));
                 if (c == 'A' || c == 'P') return c;
             }
-            System.out.print("Invalid input. Enter A or P: ");
+            System.out.print("Invalid input. 'A' or 'P' only: ");
         }
     }
 
-    // SIGN UP
+    // ------------------- ADMIN ACCOUNT -------------------
+
     public void signUp() {
         System.out.print("Create Username: ");
         username = input.nextLine();
@@ -48,7 +67,6 @@ public class Admin {
         System.out.println("Account created successfully!");
     }
 
-    // LOGIN
     public boolean login() {
         if (!isRegistered) {
             System.out.println("No admin account yet. Please sign up first.");
@@ -69,7 +87,8 @@ public class Admin {
         return false;
     }
 
-    // ADMIN MENU
+    // ------------------- ADMIN MENU -------------------
+
     public void menu() {
         int choice = 0;
 
@@ -100,7 +119,8 @@ public class Admin {
         }
     }
 
-    // ADD SCHEDULE
+    // ------------------- ADD SCHEDULE -------------------
+
     private void addSchedule() {
         char again = 'Y';
 
@@ -111,22 +131,15 @@ public class Admin {
             System.out.print("Enter Day: ");
             String day = input.nextLine();
 
-            System.out.print("Enter Start Hour (ex: 7): ");
-            int sh = input.nextInt();
-            input.nextLine();
-
+            int sh = getInt("Enter Start Hour (ex: 7): ");
             System.out.print("Enter Start Period (A/P): ");
-            char sp = getAP(); // <-- fixed
+            char sp = getAP();
 
-            System.out.print("Enter End Hour (ex: 10): ");
-            int eh = input.nextInt();
-            input.nextLine();
-
+            int eh = getInt("Enter End Hour (ex: 10): ");
             System.out.print("Enter End Period (A/P): ");
-            char ep = getAP(); // <-- fixed
+            char ep = getAP();
 
             String schedule = day + " - " + sh + (sp=='A'?"am":"pm") + " - " + eh + (ep=='A'?"am":"pm");
-
             system.addSchedule(name, schedule);
             System.out.println("Schedule added!");
 
@@ -135,7 +148,8 @@ public class Admin {
         }
     }
 
-    // VIEW ALL
+    // ------------------- VIEW ALL -------------------
+
     private void viewAll() {
         System.out.println("\n--- ALL OFFICIALS ---");
 
@@ -153,7 +167,8 @@ public class Admin {
         }
     }
 
-    // DELETE SCHEDULE
+    // ------------------- DELETE SCHEDULE -------------------
+
     private void deleteSchedule() {
         if (system.getCount() == 0) {
             System.out.println("Nothing to delete.");
@@ -162,36 +177,32 @@ public class Admin {
 
         viewAll();
 
-        System.out.print("Select official number: ");
-        if (!input.hasNextInt()) {
-            input.nextLine();
-            System.out.println("Invalid input.");
-            return;
-        }
-        int oIndex = input.nextInt() - 1;
-        input.nextLine();
+        System.out.print("Select official number to delete all schedules: ");
+        int oIndex;
 
-        if (oIndex < 0 || oIndex >= system.getCount()) {
-            System.out.println("Invalid official.");
-            return;
+        while (true) {
+            if (!input.hasNextInt()) {
+                input.nextLine(); // discard invalid input
+                System.out.print("Invalid input. Numbers only. Select official number: ");
+                continue;
+            }
+
+            oIndex = input.nextInt() - 1;
+            input.nextLine(); // consume newline
+
+            if (oIndex < 0 || oIndex >= system.getCount()) {
+                System.out.print("Invalid official number. Try again: ");
+            } else {
+                break;
+            }
         }
 
         Official o = system.getOfficials()[oIndex];
 
-        for (int j = 0; j < o.getScheduleCount(); j++) {
-            System.out.println((j + 1) + ". " + o.getSchedules()[j]);
+        while (o.getScheduleCount() > 0) {
+            system.deleteSchedule(oIndex, 0); // delete first schedule repeatedly
         }
 
-        System.out.print("Select schedule number to delete: ");
-        if (!input.hasNextInt()) {
-            input.nextLine();
-            System.out.println("Invalid input.");
-            return;
-        }
-        int sIndex = input.nextInt() - 1;
-        input.nextLine();
-
-        system.deleteSchedule(oIndex, sIndex);
-        System.out.println("Schedule deleted!");
+        System.out.println("All schedules for " + o.getName() + " have been deleted!");
     }
 }
