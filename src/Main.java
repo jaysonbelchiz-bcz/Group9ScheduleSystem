@@ -1,0 +1,48 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+        ScheduleSystem system = new ScheduleSystem();
+
+        Admin admin = new Admin(system);
+        Student student = new Student(system);
+
+        int choice = 0;
+
+        do {
+            System.out.println("\n===============================");
+            System.out.println("  CICS Schedule System");
+            System.out.println("===============================");
+            System.out.println("1. Admin");
+            System.out.println("2. Student");
+            System.out.println("3. Exit");
+            System.out.print("Enter choice: ");
+
+            if (!input.hasNextInt()) {
+                System.out.println("Invalid input! Enter a number.");
+                input.nextLine();
+                continue;
+            }
+
+            choice = input.nextInt();
+            input.nextLine();
+
+            if (choice == 1) {
+                if (admin.login()) {
+                    admin.menu();
+                }
+            } else if (choice == 2) {
+                student.menu();
+            } else if (choice == 3) {
+                System.out.println("Thank you for using the system!");
+            } else {
+                System.out.println("Invalid choice!");
+            }
+
+        } while (choice != 3);
+
+        input.close();
+    }
+}
