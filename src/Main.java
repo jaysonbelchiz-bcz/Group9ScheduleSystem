@@ -11,9 +11,9 @@ public class Main {
         int choice = 0;
 
         while (choice != 3) {
-            System.out.println("\n=============================");
-            System.out.println(" CICS Officials Schedule System");
-            System.out.println("=============================");
+            System.out.println("\n===============================");
+            System.out.println("  CICS Schedule System");
+            System.out.println("===============================");
             System.out.println("1. Admin");
             System.out.println("2. Student");
             System.out.println("3. Exit");
@@ -28,56 +28,25 @@ public class Main {
             choice = input.nextInt();
             input.nextLine();
 
-            switch (choice) {
-                case 1:
-                    adminMenu(admin);
-                    break;
+            if (choice == 1) {
+                System.out.print("Enter Admin Password: ");
+                String pass = input.nextLine();
 
-                case 2:
-                    student.menu();
-                    break;
+                if (admin.login(pass)) {
+                    admin.menu();
+                }
 
-                case 3:
-                    System.out.println("Thank you for using the system!");
-                    break;
+            } else if (choice == 2) {
+                student.menu();
 
-                default:
-                    System.out.println("Invalid choice.");
+            } else if (choice == 3) {
+                System.out.println("Thank you for using the system!");
+
+            } else {
+                System.out.println("Invalid choice.");
             }
         }
 
         input.close();
-    }
-
-    private static void adminMenu(Admin admin) {
-        Scanner sc = new Scanner(System.in);
-        int ch = 0;
-
-        while (ch != 3) {
-            System.out.println("\n--- ADMIN ACCESS ---");
-            System.out.println("1. Login");
-            System.out.println("2. Sign Up");
-            System.out.println("3. Back");
-            System.out.print("Enter choice: ");
-
-            if (!sc.hasNextInt()) {
-                sc.nextLine();
-                System.out.println("Invalid input. Numbers only.");
-                continue;
-            }
-
-            ch = sc.nextInt();
-            sc.nextLine();
-
-            if (ch == 1) {
-                if (admin.login()) {
-                    admin.menu();
-                }
-            } else if (ch == 2) {
-                admin.signUp();
-            } else if (ch != 3) {
-                System.out.println("Invalid choice.");
-            }
-        }
     }
 }

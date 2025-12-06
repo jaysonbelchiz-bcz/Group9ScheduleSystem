@@ -1,9 +1,7 @@
 import java.util.Scanner;
 
 public class Admin {
-    private String username;
-    private String password;
-    private boolean isRegistered = false;
+    private final String ADMIN_PASSWORD = "admin123";
 
     private Scanner input = new Scanner(System.in);
     private ScheduleSystem system;
@@ -12,25 +10,23 @@ public class Admin {
         this.system = system;
     }
 
-    // ------------------- INPUT VALIDATION METHODS -------------------
+    // ---------------- INPUT VALIDATION ----------------
 
-    // Safe integer input
     private int getInt(String prompt) {
         int num;
         while (true) {
             System.out.print(prompt);
             if (input.hasNextInt()) {
                 num = input.nextInt();
-                input.nextLine(); // consume newline
+                input.nextLine();
                 return num;
             } else {
-                input.nextLine(); // discard invalid input
+                input.nextLine();
                 System.out.println("Invalid input. Numbers only.");
             }
         }
     }
 
-    // Y/N input validation
     private char getYN() {
         char c;
         while (true) {
@@ -43,7 +39,6 @@ public class Admin {
         }
     }
 
-    // A/P input validation
     private char getAP() {
         char c;
         while (true) {
@@ -56,38 +51,19 @@ public class Admin {
         }
     }
 
-    // ------------------- ADMIN ACCOUNT -------------------
+    // ---------------- LOGIN ----------------
 
-    public void signUp() {
-        System.out.print("Create Username: ");
-        username = input.nextLine();
-        System.out.print("Create Password: ");
-        password = input.nextLine();
-        isRegistered = true;
-        System.out.println("Account created successfully!");
-    }
-
-    public boolean login() {
-        if (!isRegistered) {
-            System.out.println("No admin account yet. Please sign up first.");
-            return false;
-        }
-
-        System.out.print("Username: ");
-        String u = input.nextLine();
-        System.out.print("Password: ");
-        String p = input.nextLine();
-
-        if (u.equals(username) && p.equals(password)) {
+    public boolean login(String pass) {
+        if (pass.equals(ADMIN_PASSWORD)) {
             System.out.println("Login successful!");
             return true;
         }
 
-        System.out.println("Incorrect username or password.");
+        System.out.println("Incorrect password.");
         return false;
     }
 
-    // ------------------- ADMIN MENU -------------------
+    // ---------------- ADMIN MENU ----------------
 
     public void menu() {
         int choice = 0;
@@ -109,17 +85,15 @@ public class Admin {
             choice = input.nextInt();
             input.nextLine();
 
-            switch (choice) {
-                case 1: addSchedule(); break;
-                case 2: viewAll(); break;
-                case 3: deleteSchedule(); break;
-                case 4: System.out.println("Logging out..."); break;
-                default: System.out.println("Invalid option.");
-            }
+            if (choice == 1) addSchedule();
+            else if (choice == 2) viewAll();
+            else if (choice == 3) deleteSchedule();
+            else if (choice == 4) System.out.println("Logging out...");
+            else System.out.println("Invalid option.");
         }
     }
 
-    // ------------------- ADD SCHEDULE -------------------
+    // ---------------- ADD SCHEDULE ----------------
 
     private void addSchedule() {
         char again = 'Y';
@@ -139,7 +113,9 @@ public class Admin {
             System.out.print("Enter End Period (A/P): ");
             char ep = getAP();
 
-            String schedule = day + " - " + sh + (sp=='A'?"am":"pm") + " - " + eh + (ep=='A'?"am":"pm");
+            String schedule = day + " - " + sh + (sp == 'A' ? "am" : "pm") +
+                    " - " + eh + (ep == 'A' ? "am" : "pm");
+
             system.addSchedule(name, schedule);
             System.out.println("Schedule added!");
 
@@ -148,7 +124,7 @@ public class Admin {
         }
     }
 
-    // ------------------- VIEW ALL -------------------
+    // ---------------- VIEW ALL ----------------
 
     private void viewAll() {
         System.out.println("\n--- ALL OFFICIALS ---");
@@ -167,7 +143,7 @@ public class Admin {
         }
     }
 
-    // ------------------- DELETE SCHEDULE -------------------
+    // ---------------- DELETE ALL SCHEDULES OF OFFICIAL ----------------
 
     private void deleteSchedule() {
         if (system.getCount() == 0) {
@@ -182,25 +158,22 @@ public class Admin {
 
         while (true) {
             if (!input.hasNextInt()) {
-                input.nextLine(); // discard invalid input
-                System.out.print("Invalid input. Numbers only. Select official number: ");
+                input.nextLine();
+                System.out.print("Invalid input. Numbers only. Try again: ");
                 continue;
             }
 
             oIndex = input.nextInt() - 1;
-            input.nextLine(); // consume newline
+            input.nextLine();
 
-            if (oIndex < 0 || oIndex >= system.getCount()) {
-                System.out.print("Invalid official number. Try again: ");
-            } else {
-                break;
-            }
+            if (oIndex >= 0 && oIndex < system.getCount()) break;
+            System.out.print("Invalid official number. Try again: ");
         }
 
         Official o = system.getOfficials()[oIndex];
 
         while (o.getScheduleCount() > 0) {
-            system.deleteSchedule(oIndex, 0); // delete first schedule repeatedly
+            system.deleteSchedule(oIndex, 0);
         }
 
         System.out.println("All schedules for " + o.getName() + " have been deleted!");
