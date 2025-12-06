@@ -12,6 +12,7 @@ public class Admin {
         this.system = system;
     }
 
+    // GET Y/N INPUT
     private char getYN() {
         char c;
         while (true) {
@@ -21,6 +22,19 @@ public class Admin {
                 if (c == 'Y' || c == 'N') return c;
             }
             System.out.print("Invalid input. Enter Y or N: ");
+        }
+    }
+
+    // GET A/P INPUT
+    private char getAP() {
+        char c;
+        while (true) {
+            String s = input.nextLine().trim();
+            if (s.length() == 1) {
+                c = Character.toUpperCase(s.charAt(0));
+                if (c == 'A' || c == 'P') return c;
+            }
+            System.out.print("Invalid input. Enter A or P: ");
         }
     }
 
@@ -102,14 +116,14 @@ public class Admin {
             input.nextLine();
 
             System.out.print("Enter Start Period (A/P): ");
-            char sp = getYN();
+            char sp = getAP(); // <-- fixed
 
             System.out.print("Enter End Hour (ex: 10): ");
             int eh = input.nextInt();
             input.nextLine();
 
             System.out.print("Enter End Period (A/P): ");
-            char ep = getYN();
+            char ep = getAP(); // <-- fixed
 
             String schedule = day + " - " + sh + (sp=='A'?"am":"pm") + " - " + eh + (ep=='A'?"am":"pm");
 
