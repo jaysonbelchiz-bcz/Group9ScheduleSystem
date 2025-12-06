@@ -1,60 +1,49 @@
 public class ScheduleSystem {
+    private Official[] officials = new Official[50];
+    private int count = 0;
 
-    private Official[] officials;
-    private int count;
-
-    public ScheduleSystem() {
-        officials = new Official[50];
-        count = 0;
+    public Official[] getOfficials() {
+        return officials;
     }
 
+    public int getCount() {
+        return count;
+    }
+
+    // Find official by name (case-insensitive)
+    public int findOfficial(String name) {
+        for (int i = 0; i < count; i++) {
+            if (officials[i].getName().equalsIgnoreCase(name)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    // Add schedule (group same names)
     public void addSchedule(String name, String schedule) {
-        // Check if official already exists
-        for (int i = 0; i < count; i++) {
-            if (officials[i].getName().equalsIgnoreCase(name)) {
-                officials[i].addSchedule(schedule);
-                return;
-            }
-        }
+        int index = findOfficial(name);
 
-        // If not found, make a new Official
-        officials[count] = new Official(name);
-        officials[count].addSchedule(schedule);
-        count++;
-    }
-
-    public void viewAll() {
-        if (count == 0) {
-            System.out.println("No schedules available.");
-            return;
-        }
-
-        System.out.println("\n--- ALL OFFICIALS' SCHEDULES ---");
-        for (int i = 0; i < count; i++) {
-            System.out.println("\n" + (i + 1) + ". " + officials[i].getName());
-            String[] list = officials[i].getSchedules();
-            int sCount = officials[i].getScheduleCount();
-
-            for (int j = 0; j < sCount; j++) {
-                System.out.println("   - " + list[j]);
-            }
+        if (index == -1) {
+            officials[count] = new Official(name);
+            officials[count].addSchedule(schedule);
+            count++;
+        } else {
+            officials[index].addSchedule(schedule);
         }
     }
 
-    public void search(String name) {
-        for (int i = 0; i < count; i++) {
-            if (officials[i].getName().equalsIgnoreCase(name)) {
-                System.out.println("\nSchedules for " + name + ":");
-                String[] list = officials[i].getSchedules();
-                int sCount = officials[i].getScheduleCount();
+    // Remove a single schedule
+    public void deleteSchedule(int officialIndex, int scheduleIndex) {
+        Official o = officials[officialIndex];
+        o.removeSchedule(scheduleIndex);
 
-                for (int j = 0; j < sCount; j++) {
-                    System.out.println("   - " + list[j]);
-                }
-                return;
+        if (o.getScheduleCount() == 0) {
+            for (int i = officialIndex; i < count - 1; i++) {
+                officials[i] = officials[i + 1];
             }
+            officials[count - 1] = null;
+            count--;
         }
-
-        System.out.println("Official not found.");
     }
 }
