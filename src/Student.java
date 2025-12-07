@@ -1,11 +1,11 @@
 import java.util.Scanner;
 
-public class Student {
+public class Student extends User {
+
     private Scanner input = new Scanner(System.in);
-    private ScheduleSystem system;
 
     public Student(ScheduleSystem system) {
-        this.system = system;
+        super(system);
     }
 
     private char getYN() {
@@ -20,6 +20,7 @@ public class Student {
         }
     }
 
+    @Override
     public void menu() {
         int choice = 0;
 

@@ -1,70 +1,26 @@
 import java.util.Scanner;
 
-public class Admin {
-    private final String ADMIN_PASSWORD = "admin123";
+public class Admin extends User {
 
+    private final String ADMIN_PASSWORD = "group9";
     private Scanner input = new Scanner(System.in);
-    private ScheduleSystem system;
 
     public Admin(ScheduleSystem system) {
-        this.system = system;
-    }
-
-    // ---------------- INPUT VALIDATION ----------------
-
-    private int getInt(String prompt) {
-        int num;
-        while (true) {
-            System.out.print(prompt);
-            if (input.hasNextInt()) {
-                num = input.nextInt();
-                input.nextLine();
-                return num;
-            } else {
-                input.nextLine();
-                System.out.println("Invalid input. Numbers only.");
-            }
-        }
-    }
-
-    private char getYN() {
-        char c;
-        while (true) {
-            String s = input.nextLine().trim();
-            if (s.length() == 1) {
-                c = Character.toUpperCase(s.charAt(0));
-                if (c == 'Y' || c == 'N') return c;
-            }
-            System.out.print("Invalid input. Enter Y or N: ");
-        }
-    }
-
-    private char getAP() {
-        char c;
-        while (true) {
-            String s = input.nextLine().trim();
-            if (s.length() == 1) {
-                c = Character.toUpperCase(s.charAt(0));
-                if (c == 'A' || c == 'P') return c;
-            }
-            System.out.print("Invalid input. 'A' or 'P' only: ");
-        }
+        super(system);
     }
 
     // ---------------- LOGIN ----------------
-
     public boolean login(String pass) {
         if (pass.equals(ADMIN_PASSWORD)) {
             System.out.println("Login successful!");
             return true;
         }
-
         System.out.println("Incorrect password.");
         return false;
     }
 
-    // ---------------- ADMIN MENU ----------------
-
+    // ---------------- POLYMORPHISM ----------------
+    @Override
     public void menu() {
         int choice = 0;
 
@@ -93,8 +49,32 @@ public class Admin {
         }
     }
 
-    // ---------------- ADD SCHEDULE ----------------
+    // ---------------- HELPERS ----------------
+    private int getInt(String msg) {
+        int val;
+        while (true) {
+            System.out.print(msg);
+            if (input.hasNextInt()) {
+                val = input.nextInt();
+                input.nextLine();
+                return val;
+            }
+            input.nextLine();
+            System.out.println("Invalid input. Numbers only.");
+        }
+    }
 
+    private char getChar(String msg, char a, char b) {
+        while (true) {
+            System.out.print(msg);
+            String s = input.nextLine().trim().toUpperCase();
+            if (s.length() == 1 && (s.charAt(0) == a || s.charAt(0) == b))
+                return s.charAt(0);
+            System.out.println("Invalid input. '" + a + "' or '" + b + "' only.");
+        }
+    }
+
+    // ---------------- ADD SCHEDULE ----------------
     private void addSchedule() {
         char again = 'Y';
 
@@ -106,12 +86,10 @@ public class Admin {
             String day = input.nextLine();
 
             int sh = getInt("Enter Start Hour (ex: 7): ");
-            System.out.print("Enter Start Period (A/P): ");
-            char sp = getAP();
+            char sp = getChar("Enter Start Period (A/P): ", 'A', 'P');
 
             int eh = getInt("Enter End Hour (ex: 10): ");
-            System.out.print("Enter End Period (A/P): ");
-            char ep = getAP();
+            char ep = getChar("Enter End Period (A/P): ", 'A', 'P');
 
             String schedule = day + " - " + sh + (sp == 'A' ? "am" : "pm") +
                     " - " + eh + (ep == 'A' ? "am" : "pm");
@@ -119,13 +97,11 @@ public class Admin {
             system.addSchedule(name, schedule);
             System.out.println("Schedule added!");
 
-            System.out.print("Add another? (Y/N): ");
-            again = getYN();
+            again = getChar("Add another? (Y/N): ", 'Y', 'N');
         }
     }
 
     // ---------------- VIEW ALL ----------------
-
     private void viewAll() {
         System.out.println("\n--- ALL OFFICIALS ---");
 
@@ -144,16 +120,17 @@ public class Admin {
     }
 
     // ---------------- DELETE ALL SCHEDULES OF OFFICIAL ----------------
-
     private void deleteSchedule() {
+
         if (system.getCount() == 0) {
             System.out.println("Nothing to delete.");
             return;
         }
 
+        // Step 1: Show officials
         viewAll();
 
-        System.out.print("Select official number to delete all schedules: ");
+        System.out.print("Select official number: ");
         int oIndex;
 
         while (true) {
@@ -172,10 +149,37 @@ public class Admin {
 
         Official o = system.getOfficials()[oIndex];
 
-        while (o.getScheduleCount() > 0) {
-            system.deleteSchedule(oIndex, 0);
+        // Step 2: Show schedules of that official
+        if (o.getScheduleCount() == 0) {
+            System.out.println("No schedules to delete.");
+            return;
         }
 
-        System.out.println("All schedules for " + o.getName() + " have been deleted!");
+        System.out.println("\nSchedules for " + o.getName() + ":");
+        for (int i = 0; i < o.getScheduleCount(); i++) {
+            System.out.println((i + 1) + ". " + o.getSchedules()[i]);
+        }
+
+        // Step 3: Select which schedule to delete
+        System.out.print("Select schedule number to delete: ");
+        int sIndex;
+
+        while (true) {
+            if (!input.hasNextInt()) {
+                input.nextLine();
+                System.out.print("Invalid input. Numbers only. Try again: ");
+                continue;
+            }
+
+            sIndex = input.nextInt() - 1;
+            input.nextLine();
+
+            if (sIndex >= 0 && sIndex < o.getScheduleCount()) break;
+            System.out.print("Invalid schedule number. Try again: ");
+        }
+
+        // Step 4: Delete selected schedule
+        system.deleteSchedule(oIndex, sIndex);
+        System.out.println("Schedule deleted successfully!");
     }
 }
