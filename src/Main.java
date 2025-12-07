@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner input = new Scanner(System.in);
-        ScheduleSystem system = new ScheduleSystem();
+        ScheduleSystem system = ScheduleSystem.loadFromFile();
         Admin admin = new Admin(system);
         Student student = new Student(system);
 
@@ -40,6 +40,7 @@ public class Main {
                 student.menu();
 
             } else if (choice == 3) {
+                system.saveToFile();
                 System.out.println("Thank you for using the system!");
 
             } else {

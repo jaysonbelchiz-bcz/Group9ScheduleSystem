@@ -1,8 +1,15 @@
+import com.google.gson.*;
+import java.io.*;
+
 public class ScheduleSystem implements SystemActions {
 
-    private Official[] officials = new Official[50];
+    private Official[] officials = new Official[20];
     private int count = 0;
 
+    // Default constructor (needed for Gson)
+    public ScheduleSystem() {}
+
+    // Getters
     public Official[] getOfficials() {
         return officials;
     }
@@ -21,7 +28,7 @@ public class ScheduleSystem implements SystemActions {
         return -1;
     }
 
-    // Add schedule (group same names)
+    // Add schedule
     public void addSchedule(String name, String schedule) {
         int index = findOfficial(name);
 
@@ -34,7 +41,7 @@ public class ScheduleSystem implements SystemActions {
         }
     }
 
-    // Remove a single schedule
+    // Delete schedule
     public void deleteSchedule(int officialIndex, int scheduleIndex) {
         Official o = officials[officialIndex];
         o.removeSchedule(scheduleIndex);
@@ -45,6 +52,28 @@ public class ScheduleSystem implements SystemActions {
             }
             officials[count - 1] = null;
             count--;
+        }
+    }
+
+    // ---------------- GSON SAVE ----------------
+    public void saveToFile() {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        try (FileWriter writer = new FileWriter("schedules.json")) {
+            gson.toJson(this, writer);
+        } catch (IOException e) {
+            System.out.println("Error saving JSON file.");
+        }
+    }
+
+    // ---------------- GSON LOAD ----------------
+    public static ScheduleSystem loadFromFile() {
+        Gson gson = new Gson();
+
+        try (FileReader reader = new FileReader("schedules.json")) {
+            return gson.fromJson(reader, ScheduleSystem.class);
+        } catch (Exception e) {
+            return new ScheduleSystem();
         }
     }
 }
