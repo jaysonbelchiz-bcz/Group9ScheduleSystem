@@ -1,4 +1,5 @@
-public class ScheduleSystem {
+public class ScheduleSystem implements SystemActions {
+
     private Official[] officials = new Official[50];
     private int count = 0;
 
