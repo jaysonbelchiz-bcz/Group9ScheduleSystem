@@ -1,83 +1,8 @@
 {
   "officials": [
-    {
-      "name": "Dr. Imelda Flores",
-      "schedules": [
-        "Monday - 9am - 3pm",
-        "Friday - 8am - 2pm",
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "scheduleCount": 2
-    },
-    {
-      "name": "Mr. Randy Manimtim ",
-      "schedules": [
-        "Tuesday - 9am - 1pm",
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "scheduleCount": 1
-    },
-    {
-      "name": "Atty. Alvin De Silva",
-      "schedules": [
-        "Wednesday - 9am - 4pm",
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "scheduleCount": 1
-    },
+    null,
+    null,
+    null,
     null,
     null,
     null,
@@ -126,5 +51,5 @@
     null,
     null
   ],
-  "count": 3
+  "count": 0
 }
