@@ -15,7 +15,7 @@ public class Admin extends User {
             System.out.println("Login successful!");
             return true;
         }
-        System.out.println("Incorrect password.");
+        System.out.println("Wrong password.");
         return false;
     }
 
@@ -44,7 +44,7 @@ public class Admin extends User {
             if (choice == 1) addSchedule();
             else if (choice == 2) viewAll();
             else if (choice == 3) deleteSchedule();
-            else if (choice == 4) System.out.println("Logging out...");
+            else if (choice == 4) System.out.println("Logging out.");
             else System.out.println("Invalid option.");
         }
     }
