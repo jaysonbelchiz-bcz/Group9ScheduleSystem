@@ -82,13 +82,13 @@ public class Admin extends User {
             System.out.print("Enter Official Name: ");
             String name = input.nextLine();
 
-            System.out.print("Enter Day: ");
+            System.out.print("Enter a Day: ");
             String day = input.nextLine();
 
             int sh = getInt("Enter Start Hour (ex: 7): ");
             char sp = getChar("Enter Start Period (A/P): ", 'A', 'P');
 
-            int eh = getInt("Enter End Hour (ex: 10): ");
+            int eh = getInt("Enter End Hour (ex: 9): ");
             char ep = getChar("Enter End Period (A/P): ", 'A', 'P');
 
             String schedule = day + " - " + sh + (sp == 'A' ? "am" : "pm") +

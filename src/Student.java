@@ -33,7 +33,7 @@ public class Student extends User {
 
             if (!input.hasNextInt()) {
                 input.nextLine();
-                System.out.println("Invalid input. Numbers only.");
+                System.out.println("Invalid input. numbers only.");
                 continue;
             }
 
@@ -44,7 +44,7 @@ public class Student extends User {
                 case 1: viewAll(); break;
                 case 2: search(); break;
                 case 3: System.out.println("Returning..."); break;
-                default: System.out.println("Invalid option.");
+                default: System.out.println("Invalid input.");
             }
         }
     }
@@ -76,7 +76,7 @@ public class Student extends User {
         int index = system.findOfficial(name);
 
         if (index == -1) {
-            System.out.println("Official not found.");
+            System.out.println("Official cannot be found.");
             return;
         }
 
