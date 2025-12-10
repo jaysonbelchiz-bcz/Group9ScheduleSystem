@@ -1,6 +1,6 @@
 public class Official {
     private String name;
-    private String[] schedules = new String[20];
+    private String[] schedules = new String[50];
     private int scheduleCount = 0;
 
     public Official(String name) {
