@@ -97,7 +97,7 @@ public class Admin extends User {
             system.addSchedule(name, schedule);
             System.out.println("Schedule added!");
 
-            again = getChar("Add another? (Y/N): ", 'Y', 'N');
+            again = getChar("Do you want to add more? (Y/N): ", 'Y', 'N');
         }
     }
 
@@ -180,6 +180,6 @@ public class Admin extends User {
 
         // Step 4: Delete selected schedule
         system.deleteSchedule(oIndex, sIndex);
-        System.out.println("Schedule deleted successfully!");
+        System.out.println("Your schedule deleted successfully!");
     }
 }

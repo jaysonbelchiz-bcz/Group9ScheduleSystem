@@ -41,7 +41,7 @@ public class Main {
 
             } else if (choice == 3) {
                 system.saveToFile();
-                System.out.println("Thank you for using the system!");
+                System.out.println("Thank you for using our system!");
 
             } else {
                 System.out.println("Invalid choice.");
