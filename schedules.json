@@ -360,11 +360,86 @@
       ],
       "scheduleCount": 1
     },
-    null,
-    null,
-    null,
-    null,
-    null,
+    {
+      "name": "Dr. Dion",
+      "schedules": [
+        "Monday - 6am - 8pm",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "scheduleCount": 1
+    },
+    {
+      "name": "Dr. Garza",
+      "schedules": [
+        "friday - 2pm - 6pm",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "scheduleCount": 1
+    },
+    {
+      "name": "Engr. Linatoc",
+      "schedules": [
+        "Tuesday - 6am - 6pm",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "scheduleCount": 1
+    },
+    {
+      "name": "Atty. Freyanos",
+      "schedules": [
+        "Wednesday - 5am - 6pm",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "scheduleCount": 1
+    },
+    {
+      "name": "Atty. Riley",
+      "schedules": [
+        "Monday - 6am - 7pm",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "scheduleCount": 1
+    },
     null,
     null,
     null,
@@ -401,5 +476,5 @@
     null,
     null
   ],
-  "count": 10
+  "count": 15
 }
