@@ -440,11 +440,86 @@
       ],
       "scheduleCount": 1
     },
-    null,
-    null,
-    null,
-    null,
-    null,
+    {
+      "name": "Dr. Vegapunk",
+      "schedules": [
+        "monday - 7am - 3pm",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "scheduleCount": 1
+    },
+    {
+      "name": "Atty. Bayola",
+      "schedules": [
+        "wednesday - 8am - 1pm",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "scheduleCount": 1
+    },
+    {
+      "name": "Dr. Kieth",
+      "schedules": [
+        "friday - 8am - 4pm",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "scheduleCount": 1
+    },
+    {
+      "name": "Atty. Ellie",
+      "schedules": [
+        "thursday - 7am - 7pm",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "scheduleCount": 1
+    },
+    {
+      "name": "Atty. Lukas",
+      "schedules": [
+        "friday - 11am - 7pm",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "scheduleCount": 1
+    },
     null,
     null,
     null,
@@ -476,5 +551,5 @@
     null,
     null
   ],
-  "count": 15
+  "count": 20
 }
