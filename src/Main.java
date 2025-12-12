@@ -10,9 +10,9 @@ public class Main {
         int choice = 0;
 
         while (choice != 3) {
-            System.out.println("\n===============================");
-            System.out.println("  CICS Schedule System");
-            System.out.println("===============================");
+            System.out.println("\n=============================================");
+            System.out.println("  Batangas State University Schedule System");
+            System.out.println("=============================================");
             System.out.println("1. Admin");
             System.out.println("2. Student");
             System.out.println("3. Exit");

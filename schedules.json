@@ -209,41 +209,9 @@
       "scheduleCount": 1
     },
     {
-      "name": "Atty. Freyanos",
-      "schedules": [
-        "Wednesday - 5am - 6pm",
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "scheduleCount": 1
-    },
-    {
       "name": "Atty. Riley",
       "schedules": [
         "Monday - 6am - 7pm",
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "scheduleCount": 1
-    },
-    {
-      "name": "Dr. Vegapunk",
-      "schedules": [
-        "monday - 7am - 3pm",
         null,
         null,
         null,
@@ -349,7 +317,9 @@
     null,
     null,
     null,
+    null,
+    null,
     null
   ],
-  "count": 20
+  "count": 18
 }

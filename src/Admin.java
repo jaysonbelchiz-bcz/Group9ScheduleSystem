@@ -103,7 +103,7 @@ public class Admin extends User {
 
     // ---------------- VIEW ALL ----------------
     private void viewAll() {
-        System.out.println("\n--- ALL OFFICIALS ---");
+        System.out.println("\n--- ALL SCHEDULES ---");
 
         if (system.getCount() == 0) {
             System.out.println("No schedules found.");
